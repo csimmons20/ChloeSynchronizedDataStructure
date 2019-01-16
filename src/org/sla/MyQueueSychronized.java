@@ -16,7 +16,6 @@ public class MyQueueSychronized {
 
     //allow put() if space in data
     synchronized boolean put(Object NewData) {
-
         //ADD DATA
         AllData[PositionPut] = NewData;
         amountData = amountData + 1;
@@ -27,16 +26,16 @@ public class MyQueueSychronized {
         } else {
             PositionPut = 0;
         }
-
         if (amountData >= 100) {
             System.out.println("Error: Can't put in anymore data! Please get()");
         }
+
         return false;
     }
 
 
     //allow get() if no more space for data
-    synchronized boolean get(int DID) {
+    synchronized Object get() {
         if(amountData <= 0 ){
             System.out.println("Error: No more data! Please put().");
         }
@@ -47,13 +46,13 @@ public class MyQueueSychronized {
 
         if (PositionGet < 99) {
             PositionGet = PositionGet + 1;
-            return true;
+            return AllData[originalPositionGet];
+
         } else {
             PositionGet = 0;
         }
-        //return AllData[originalPositionGet];
+        return null;
 
-        return false;
     }
 }
 

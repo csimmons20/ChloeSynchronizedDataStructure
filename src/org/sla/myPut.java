@@ -2,12 +2,10 @@ package org.sla;
 
 public class myPut implements Runnable{
     MyQueueSychronized ShareMyQueue;
-    int putID;
     int puts;
 
-    myPut(MyQueueSychronized myqueue, int id, int howMany){
+    myPut(MyQueueSychronized myqueue, int howMany){
         ShareMyQueue = myqueue;
-        putID = id;
         puts = howMany;
     }
 
@@ -15,12 +13,11 @@ public class myPut implements Runnable{
     public void run() {
         //remove 100 spaces
         for(int i = 0; i < puts; i ++) {
-            boolean putSuccess = ShareMyQueue.put(putID);
+            boolean putSuccess = ShareMyQueue.put(i);
             while(!putSuccess){
                 Thread.currentThread().yield();
-                putSuccess = ShareMyQueue.put(putID);
+                putSuccess = ShareMyQueue.put(i);
             }
-            ShareMyQueue.put(i);
         }
     }
 

@@ -5,24 +5,22 @@ public class myGet implements Runnable{
    int DID;
    int gets;
 
-   myGet(MyQueueSychronized myqueue, int ID, int howMany){
+   myGet(MyQueueSychronized myqueue, int howMany){
        ShareMyQueue = myqueue;
-       DID = ID;
        gets = howMany;
    }
 
        @Override
     public void run() {
        //remove 100 spaces
-        for(int j = 0; j < gets; j ++) {
-            boolean getSuccess = ShareMyQueue.get(DID);
+        for(int i = 0; i < gets; i ++) {
+            Object obj = ShareMyQueue.get();
 
-            while (!getSuccess){
+            while (obj == null){
                 Thread.currentThread().yield();
-                getSuccess = ShareMyQueue.get(DID);
+                obj = ShareMyQueue.get();
             }
-            Object NewQueue = ShareMyQueue.get(DID);
-            System.out.println(NewQueue);
+            System.out.println(obj);
         }
       }
 }
